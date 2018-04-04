@@ -4,6 +4,8 @@ jdk:
 
 services:
   - postgresql
+addons:
+  postgresql: "9.6"
 
 before_script:
   - psql -c 'create database callcenter;' -U postgres
