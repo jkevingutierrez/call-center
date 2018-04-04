@@ -13,6 +13,4 @@ before_script:
   - psql -c "ALTER DATABASE callcenter OWNER TO foo;" -U postgres
 
 env:
-  - DB_USER=foo
-  - DB_PASSWORD=bar
-  
+  - DB_USER=foo DB_PASSWORD=bar
