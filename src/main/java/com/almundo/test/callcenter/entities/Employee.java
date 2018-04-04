@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -106,4 +107,35 @@ public class Employee {
         this.calls = calls;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return id == employee.id &&
+                available == employee.available &&
+                busy == employee.busy &&
+                Objects.equals(name, employee.name) &&
+                type == employee.type &&
+                Objects.equals(calls, employee.calls) &&
+                Objects.equals(email, employee.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, type, available, busy, calls, email);
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type=" + type +
+                ", available=" + available +
+                ", busy=" + busy +
+                ", calls=" + calls +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

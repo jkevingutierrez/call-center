@@ -4,6 +4,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 public class Call {
@@ -71,5 +72,33 @@ public class Call {
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Call call = (Call) o;
+        return id == call.id &&
+                Objects.equals(createdDate, call.createdDate) &&
+                Objects.equals(answeredDate, call.answeredDate) &&
+                Objects.equals(finishedDate, call.finishedDate) &&
+                Objects.equals(employee, call.employee);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, createdDate, answeredDate, finishedDate, employee);
+    }
+
+    @Override
+    public String toString() {
+        return "Call{" +
+                "id=" + id +
+                ", createdDate=" + createdDate +
+                ", answeredDate=" + answeredDate +
+                ", finishedDate=" + finishedDate +
+                ", employee=" + employee +
+                '}';
     }
 }
