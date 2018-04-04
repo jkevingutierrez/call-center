@@ -31,16 +31,16 @@ public class EmployeeController extends BaseController {
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Employee> createRule(@RequestBody Employee employee) {
-		Employee employeeCreated = employeeService.save(employee);
-		return new ResponseEntity(employeeCreated, HttpStatus.OK);
-	}
+    public ResponseEntity<Employee> createRule(@RequestBody Employee employee) {
+        Employee employeeCreated = employeeService.save(employee);
+        return new ResponseEntity(employeeCreated, HttpStatus.OK);
+    }
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Employee> updateRule(@PathVariable("id") Long id, @RequestBody Employee employee) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Employee> updateRule(@PathVariable("id") Long id, @RequestBody Employee employee) {
         Employee employeeUpdated = employeeService.update(id, employee);
-		return new ResponseEntity(employeeUpdated, HttpStatus.OK);
-	}
+        return new ResponseEntity(employeeUpdated, HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Employee> delete(@PathVariable("id") Long id) {

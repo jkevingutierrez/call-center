@@ -1,6 +1,5 @@
 package com.almundo.test.callcenter.services;
 
-import com.almundo.test.callcenter.entities.Call;
 import com.almundo.test.callcenter.entities.Employee;
 import com.almundo.test.callcenter.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class EmployeeService  {
+public class EmployeeService {
 
     @Autowired
     EmployeeRepository employeeRepository;

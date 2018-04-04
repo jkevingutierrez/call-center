@@ -18,7 +18,7 @@ public class CallService {
         return callSaved;
     }
 
-    public Call update(Long id, Call call){
+    public Call update(Long id, Call call) {
         Call toUpdate = get(id);
 
         if (call.getCreatedDate() != null) {
