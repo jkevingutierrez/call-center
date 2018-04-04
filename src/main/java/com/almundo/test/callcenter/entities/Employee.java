@@ -1,9 +1,13 @@
 package com.almundo.test.callcenter.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Employee {
 
     public static enum Type {
@@ -28,6 +32,7 @@ public class Employee {
     private boolean busy;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Call> calls;
 
     @Column(name = "email", length = 100)
