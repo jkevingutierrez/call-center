@@ -117,13 +117,12 @@ public class Employee {
                 busy == employee.busy &&
                 Objects.equals(name, employee.name) &&
                 type == employee.type &&
-                Objects.equals(calls, employee.calls) &&
                 Objects.equals(email, employee.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, type, available, busy, calls, email);
+        return Objects.hash(id, name, type, available, busy, email);
     }
 
     @Override
@@ -134,7 +133,6 @@ public class Employee {
                 ", type=" + type +
                 ", available=" + available +
                 ", busy=" + busy +
-                ", calls=" + calls +
                 ", email='" + email + '\'' +
                 '}';
     }

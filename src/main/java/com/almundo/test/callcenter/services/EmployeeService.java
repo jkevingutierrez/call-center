@@ -19,19 +19,11 @@ public class EmployeeService {
     }
 
     public Employee update(Long id, Employee employee) {
-        Employee toUpdate = get(id);
-
-        if (employee.getName() != null) {
-            toUpdate.setName(employee.getName());
+        if (id == employee.getId()) {
+            employee = employeeRepository.save(employee);
         }
 
-        if (employee.getType() != null) {
-            toUpdate.setType(employee.getType());
-        }
-
-        toUpdate = employeeRepository.save(toUpdate);
-
-        return toUpdate;
+        return employee;
     }
 
     public Employee get(Long id) {
@@ -63,6 +55,20 @@ public class EmployeeService {
 
     public List<Employee> getAllFreesByType(Employee.Type type) {
         List<Employee> employees = employeeRepository.findAllFreesByType(type);
+        return employees;
+    }
+
+    public List<Employee> getAllThatCanAttendACall() {
+        List<Employee> employees = getAllFreesByType(Employee.Type.OPERATOR);
+
+        if (employees.isEmpty()) {
+            employees = getAllFreesByType(Employee.Type.SUPERVISOR);
+        }
+
+        if (employees.isEmpty()) {
+            employees = getAllFreesByType(Employee.Type.MANAGER);
+        }
+
         return employees;
     }
 }

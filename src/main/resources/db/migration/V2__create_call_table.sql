@@ -1,7 +1,7 @@
 create table CALL (
-    ID int8 not null primary key,
-    CREATED_DATE date not null,
-    ANSWERED_DATE date,
-    FINISHED_DATE date,
+    ID bigserial primary key,
+    CREATED_DATE timestamp not null,
+    ANSWERED_DATE timestamp,
+    FINISHED_DATE timestamp,
     EMPLOYEE_ID int8 references EMPLOYEE (ID)
 );

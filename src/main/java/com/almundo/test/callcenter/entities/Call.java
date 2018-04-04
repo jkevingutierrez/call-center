@@ -1,5 +1,6 @@
 package com.almundo.test.callcenter.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -7,6 +8,7 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Call {
 
     @Id
@@ -14,15 +16,15 @@ public class Call {
     private long id;
 
     @CreationTimestamp
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_date", nullable = false)
     private Date createdDate;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "answered_date")
     private Date answeredDate;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "finished_date")
     private Date finishedDate;
 
@@ -58,8 +60,8 @@ public class Call {
         this.id = id;
     }
 
-    public void setCreatedDate(Date endDate) {
-        this.finishedDate = endDate;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     public void setAnsweredDate(Date answeredDate) {

@@ -19,23 +19,11 @@ public class CallService {
     }
 
     public Call update(Long id, Call call) {
-        Call toUpdate = get(id);
-
-        if (call.getCreatedDate() != null) {
-            toUpdate.setCreatedDate(call.getCreatedDate());
+        if (id == call.getId()) {
+            call = callRepository.save(call);
         }
 
-        if (call.getAnsweredDate() != null) {
-            toUpdate.setAnsweredDate(call.getAnsweredDate());
-        }
-
-        if (call.getFinishedDate() != null) {
-            toUpdate.setFinishedDate(call.getFinishedDate());
-        }
-
-        toUpdate = callRepository.save(toUpdate);
-
-        return toUpdate;
+        return call;
     }
 
     public Call get(Long id) {

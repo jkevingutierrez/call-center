@@ -44,25 +44,25 @@ public class CallController extends BaseController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Employee> get(@PathVariable(value = "id") Long id) {
-        Call employee = callService.get(id);
-        return new ResponseEntity(employee, HttpStatus.OK);
+    public ResponseEntity<Call> get(@PathVariable(value = "id") Long id) {
+        Call call = callService.get(id);
+        return new ResponseEntity(call, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Employee> create(@RequestBody Call call) {
+    public ResponseEntity<Call> create(@RequestBody Call call) {
         Call callCreated = callService.save(call);
         return new ResponseEntity(callCreated, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Employee> update(@PathVariable("id") Long id, @RequestBody Call call) {
+    public ResponseEntity<Call> update(@PathVariable("id") Long id, @RequestBody Call call) {
         Call callUpdated = callService.update(id, call);
         return new ResponseEntity(callUpdated, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Employee> delete(@PathVariable("id") Long id) {
+    public ResponseEntity<Call> delete(@PathVariable("id") Long id) {
         Call call = callService.delete(id);
         return new ResponseEntity(call, HttpStatus.OK);
     }
