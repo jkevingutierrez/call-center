@@ -31,9 +31,9 @@ public class CallController extends BaseController {
         return new ResponseEntity(calls, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/current", method = RequestMethod.GET)
-    public ResponseEntity<List<Call>> getAllInCurrent() {
-        List<Call> calls = callService.getAllInCurrent();
+    @RequestMapping(value = "/inprogress", method = RequestMethod.GET)
+    public ResponseEntity<List<Call>> getAllInProgress() {
+        List<Call> calls = callService.getAllInProgress();
         return new ResponseEntity(calls, HttpStatus.OK);
     }
 

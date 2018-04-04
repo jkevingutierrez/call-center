@@ -12,7 +12,7 @@ public interface CallRepository extends JpaRepository<Call, Long> {
     List<Call> findAllFinished();
 
     @Query(value = "SELECT c FROM Call c WHERE c.answeredDate IS NOT NULL AND c.finishedDate IS NULL")
-    List<Call> findAllInCurrent();
+    List<Call> findAllInProgress();
 
     @Query(value = "SELECT c FROM Call c WHERE c.answeredDate IS NULL")
     List<Call> findAllUnanswered();

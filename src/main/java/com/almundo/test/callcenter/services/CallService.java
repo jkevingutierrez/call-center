@@ -60,8 +60,8 @@ public class CallService {
         return calls;
     }
 
-    public List<Call> getAllInCurrent() {
-        List<Call> calls = callRepository.findAllInCurrent();
+    public List<Call> getAllInProgress() {
+        List<Call> calls = callRepository.findAllInProgress();
         return calls;
     }
 
