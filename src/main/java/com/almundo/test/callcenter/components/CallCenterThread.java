@@ -7,6 +7,7 @@ import com.almundo.test.callcenter.services.EmployeeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -25,6 +26,12 @@ public class CallCenterThread implements Runnable {
     @Autowired
     private EmployeeService employeeService;
 
+    @Value("${call.min-duration}")
+    private int minDuration;
+
+    @Value("${call.max-duration}")
+    private int maxDuration;
+
     @Override
     public void run() {
         long start = System.currentTimeMillis();
@@ -39,8 +46,6 @@ public class CallCenterThread implements Runnable {
 
     private void sleep() {
         try {
-            int minDuration = 5;
-            int maxDuration = 10;
             int randomDuration = (int) (Math.random() * (maxDuration - minDuration)) + minDuration;
 
             Thread.sleep(randomDuration * 1000);
