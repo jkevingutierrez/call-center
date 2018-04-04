@@ -51,8 +51,18 @@ public class EmployeeService {
         return employees;
     }
 
+    public List<Employee> getAllAvailables() {
+        List<Employee> employees = employeeRepository.findAllAvailables();
+        return employees;
+    }
+
     public List<Employee> getAllFrees() {
         List<Employee> employees = employeeRepository.findAllFrees();
+        return employees;
+    }
+
+    public List<Employee> getAllFreesByType(Employee.Type type) {
+        List<Employee> employees = employeeRepository.findAllFreesByType(type);
         return employees;
     }
 }

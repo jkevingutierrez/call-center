@@ -55,6 +55,16 @@ public class CallService {
         return calls;
     }
 
+    public List<Call> getAllFinished() {
+        List<Call> calls = callRepository.findAllFinished();
+        return calls;
+    }
+
+    public List<Call> getAllInCurrent() {
+        List<Call> calls = callRepository.findAllInCurrent();
+        return calls;
+    }
+
     public List<Call> getAllUnaswered() {
         List<Call> calls = callRepository.findAllUnanswered();
         return calls;

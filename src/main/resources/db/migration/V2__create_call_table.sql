@@ -3,5 +3,5 @@ create table CALL (
     CREATED_DATE date not null,
     ANSWERED_DATE date,
     FINISHED_DATE date,
-    EMPLOYEE_ID int8 not null references EMPLOYEE (ID)
+    EMPLOYEE_ID int8 references EMPLOYEE (ID)
 );

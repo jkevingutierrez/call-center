@@ -8,10 +8,13 @@ import java.util.List;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
-    @Query(value = "SELECT e FROM Employee e WHERE e.currentCall IS NULL ORDER BY type ASC")
+    @Query(value = "SELECT e FROM Employee e WHERE e.available = TRUE")
+    List<Employee> findAllAvailables();
+
+    @Query(value = "SELECT e FROM Employee e WHERE e.available = TRUE AND e.busy = FALSE ORDER BY type ASC")
     List<Employee> findAllFrees();
 
-    @Query(value = "SELECT e FROM Employee e WHERE e.currentCall IS NULL AND e.type = ?1")
+    @Query(value = "SELECT e FROM Employee e LEFT JOIN Call c WHERE e.available = TRUE AND e.type = ?1 AND e.busy = FALSE")
     List<Employee> findAllFreesByType(Employee.Type type);
 
 }

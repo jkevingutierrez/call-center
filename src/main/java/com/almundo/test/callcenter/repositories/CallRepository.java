@@ -8,7 +8,13 @@ import java.util.List;
 
 public interface CallRepository extends JpaRepository<Call, Long> {
 
-    @Query(value = "SELECT c FROM Call c WHERE c.employee IS NULL")
+    @Query(value = "SELECT c FROM Call c WHERE c.finishedDate IS NOT NULL")
+    List<Call> findAllFinished();
+
+    @Query(value = "SELECT c FROM Call c WHERE c.answeredDate IS NOT NULL AND c.finishedDate IS NULL")
+    List<Call> findAllInCurrent();
+
+    @Query(value = "SELECT c FROM Call c WHERE c.answeredDate IS NULL")
     List<Call> findAllUnanswered();
 
 }

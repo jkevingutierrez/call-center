@@ -24,6 +24,24 @@ public class EmployeeController extends BaseController {
         return new ResponseEntity(employees, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/availables", method = RequestMethod.GET)
+    ResponseEntity<List<Employee>> getAllAvailables() {
+        List<Employee> employees = employeeService.getAllAvailables();
+        return new ResponseEntity(employees, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/frees", method = RequestMethod.GET)
+    ResponseEntity<List<Employee>> getAllFrees() {
+        List<Employee> employees = employeeService.getAllFrees();
+        return new ResponseEntity(employees, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/frees/{type}", method = RequestMethod.GET)
+    ResponseEntity<List<Employee>> getAllFreesByType(@PathVariable(value = "type") Employee.Type type) {
+        List<Employee> employees = employeeService.getAllFreesByType(type);
+        return new ResponseEntity(employees, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Employee> get(@PathVariable(value = "id") Long id) {
         Employee employee = employeeService.get(id);
@@ -31,13 +49,13 @@ public class EmployeeController extends BaseController {
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Employee> createRule(@RequestBody Employee employee) {
+    public ResponseEntity<Employee> create(@RequestBody Employee employee) {
         Employee employeeCreated = employeeService.save(employee);
         return new ResponseEntity(employeeCreated, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Employee> updateRule(@PathVariable("id") Long id, @RequestBody Employee employee) {
+    public ResponseEntity<Employee> update(@PathVariable("id") Long id, @RequestBody Employee employee) {
         Employee employeeUpdated = employeeService.update(id, employee);
         return new ResponseEntity(employeeUpdated, HttpStatus.OK);
     }

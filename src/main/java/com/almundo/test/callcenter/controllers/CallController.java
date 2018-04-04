@@ -25,6 +25,24 @@ public class CallController extends BaseController {
         return new ResponseEntity(calls, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/finished", method = RequestMethod.GET)
+    public ResponseEntity<List<Call>> getAllFinished() {
+        List<Call> calls = callService.getAllFinished();
+        return new ResponseEntity(calls, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/current", method = RequestMethod.GET)
+    public ResponseEntity<List<Call>> getAllInCurrent() {
+        List<Call> calls = callService.getAllInCurrent();
+        return new ResponseEntity(calls, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/unanswered", method = RequestMethod.GET)
+    public ResponseEntity<List<Call>> getAllUnanswered() {
+        List<Call> calls = callService.getAllUnaswered();
+        return new ResponseEntity(calls, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Employee> get(@PathVariable(value = "id") Long id) {
         Call employee = callService.get(id);
@@ -32,13 +50,13 @@ public class CallController extends BaseController {
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Employee> createRule(@RequestBody Call call) {
+    public ResponseEntity<Employee> create(@RequestBody Call call) {
         Call callCreated = callService.save(call);
         return new ResponseEntity(callCreated, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Employee> updateRule(@PathVariable("id") Long id, @RequestBody Call call) {
+    public ResponseEntity<Employee> update(@PathVariable("id") Long id, @RequestBody Call call) {
         Call callUpdated = callService.update(id, call);
         return new ResponseEntity(callUpdated, HttpStatus.OK);
     }

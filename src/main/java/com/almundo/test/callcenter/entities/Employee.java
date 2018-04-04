@@ -1,6 +1,7 @@
 package com.almundo.test.callcenter.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Employee {
@@ -20,18 +21,28 @@ public class Employee {
     @Column(name = "type", length = 15, nullable = false)
     private Type type;
 
-    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Call currentCall;
+    @Column(name = "available")
+    private boolean available;
+
+    @Column(name = "busy")
+    private boolean busy;
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Call> calls;
 
     @Column(name = "email", length = 100)
     private String email;
 
     public Employee() {
+        this.available = true;
+        this.busy = false;
     }
 
     public Employee(String name, Type type) {
         this.name = name;
         this.type = type;
+        this.available = true;
+        this.busy = false;
     }
 
     public long getId() {
@@ -46,8 +57,16 @@ public class Employee {
         return type;
     }
 
-    public Call getCurrentCall() {
-        return currentCall;
+    public boolean getAvailable() {
+        return available;
+    }
+
+    public boolean getBusy() {
+        return busy;
+    }
+
+    public List<Call> getCalls() {
+        return calls;
     }
 
     public String getEmail() {
@@ -66,12 +85,20 @@ public class Employee {
         this.type = type;
     }
 
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+
+    public void setBusy(boolean busy) {
+        this.busy = busy;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public void setCurrentCall(Call currentCall) {
-        this.currentCall = currentCall;
+    public void setCalls(List<Call> calls) {
+        this.calls = calls;
     }
 
 }
