@@ -1,6 +1,7 @@
 package com.almundo.test.callcenter.entities;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Employee {
@@ -25,6 +26,8 @@ public class Employee {
 
     @Column(name = "email", length = 100)
     private String email;
+
+    public Employee() { }
 
     public Employee(String name, Type type) {
         this.name = name;
