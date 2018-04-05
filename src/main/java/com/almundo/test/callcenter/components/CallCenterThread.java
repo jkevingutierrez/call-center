@@ -26,7 +26,7 @@ public class CallCenterThread implements Runnable {
     @Autowired
     private EmployeeService employeeService;
 
-    @Value("${call.min-duration")
+    @Value("${call.min-duration}")
     private int minDuration;
 
     @Value("${call.max-duration}")
@@ -35,13 +35,14 @@ public class CallCenterThread implements Runnable {
     @Override
     public void run() {
         long start = System.currentTimeMillis();
+        Thread currentThread = Thread.currentThread();
 
-        logger.info("Start attending call " + this.call.getId() + " at " + new Date());
+        logger.info("Start attending call " + this.call.getId() + " on thread -- " + currentThread.getName() + " -- at " + new Date());
 
         sleep();
         updateCallAndEmployee();
 
-        logger.info("Finished call " + this.call.getId() + " after " + (System.currentTimeMillis() - start) + "ms");
+        logger.info("Finished call " + this.call.getId() + " on thread -- " + currentThread.getName() + " -- after " + (System.currentTimeMillis() - start) + "ms");
     }
 
     private void sleep() {
