@@ -53,7 +53,7 @@ public class DispatcherService {
     }
 
     public Call dispatchCall(Call call) {
-        if (call != null) {
+        if (call != null && call.getFinishedDate() == null) {
             logger.info("Sending call to be answering");
             CallCenterThread thread = applicationContext.getBean(CallCenterThread.class);
             ThreadPoolTaskExecutor threadPoolTaskExecutor = (ThreadPoolTaskExecutor) taskExecutor;
@@ -73,9 +73,12 @@ public class DispatcherService {
             }
 
             logger.info("Thread Pool active count: " + threadPoolExecutor.getActiveCount());
+        } else if (call.getFinishedDate() != null) {
+            logger.error("The call has already been answered");
         } else {
-            logger.error("Call is null");
+            logger.error("The call to be dispatched is null");
         }
+
         return call;
     }
 }
