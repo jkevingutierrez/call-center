@@ -22,6 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class EndPointTests {
+
     @MockBean
     private DispatcherService dispatcherService;
 
@@ -37,4 +38,5 @@ public class EndPointTests {
         this.mockMvc.perform(get("/dispatch")).andDo(print()).andExpect(status().isOk())
                 .andExpect(content().string(containsString("\"id\":" + call.getId())));
     }
+
 }

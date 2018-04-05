@@ -73,7 +73,6 @@ public class DispatcherServiceTests {
 
     @Test(expected = AssertionError.class)
     public void c_should_take_more_than_max_duration_to_dispatch_more_than_ten_calls_in_parallel() throws InterruptedException {
-
         int numberOfCalls = 21;
         List<Call> calls = service.dispatchNewCalls(numberOfCalls);
 
@@ -90,4 +89,5 @@ public class DispatcherServiceTests {
         assertThat(call.getAnsweredDate()).isNotNull();
         assertThat(call.getEmployee()).isNotNull();
     }
+
 }

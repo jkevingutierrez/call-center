@@ -30,14 +30,11 @@ public class EmployeeRepositoryTests {
 
     @Test
     public void should_store_a_employee() {
-        // given
         Employee employee = new Employee("Operator 1", Employee.Type.OPERATOR);
         entityManager.persist(employee);
 
-        // when
         Employee found = repository.getOne(employee.getId());
 
-        // then
         assertThat(found).isEqualTo(employee);
         assertThat(found.getId()).isOfAnyClassIn(Long.class);
         assertThat(found.getId()).isNotNull();

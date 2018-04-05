@@ -25,10 +25,9 @@ public class CallCenterApplicationTests {
     private EmployeeController employeeController;
 
     @Test
-    public void contexLoads() {
+    public void contextLoads() {
         assertThat(dispatcherController).isNotNull();
         assertThat(callController).isNotNull();
         assertThat(employeeController).isNotNull();
     }
-
 }

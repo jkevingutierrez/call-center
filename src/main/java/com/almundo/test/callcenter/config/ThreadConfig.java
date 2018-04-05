@@ -8,6 +8,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 @Configuration
 public class ThreadConfig {
+
     @Value("${number.of.requests}")
     private int numberOfRequests;
 
@@ -24,4 +25,5 @@ public class ThreadConfig {
         executor.initialize();
         return executor;
     }
+
 }
