@@ -27,6 +27,10 @@ public class Scheduler {
 
         List<Call> unansweredCalls = callService.getAllUnaswered();
 
+        if (unansweredCalls.isEmpty()) {
+            logger.info("There are not any unanswered calls");
+        }
+
         for (Call call : unansweredCalls) {
             logger.info("Dispatching call " + call.getId());
             dispatcherService.dispatchCall(call);
