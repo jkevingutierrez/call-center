@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.task.TaskExecutor;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -16,7 +17,7 @@ import java.util.List;
 
 @Service
 public class DispatcherService {
-    private static final Logger logger = LoggerFactory.getLogger(CallCenterThread.class);
+    private static final Logger logger = LoggerFactory.getLogger(DispatcherService.class);
 
     @Autowired
     private TaskExecutor taskExecutor;
@@ -74,9 +75,9 @@ public class DispatcherService {
             thread.setCall(call);
             taskExecutor.execute(thread);
 
-            // ThreadPoolTaskExecutor test = (ThreadPoolTaskExecutor) taskExecutor;
-            // System.out.println("ACTIVECOUNT: " + test.getActiveCount());
-            // System.out.println("POOLSIZE: " + test.getPoolSize());
+            ThreadPoolTaskExecutor threadPoolTaskExecutor = (ThreadPoolTaskExecutor) taskExecutor;
+            logger.info("ACTIVE_COUNT: " + threadPoolTaskExecutor.getActiveCount());
+            // logger.info("POOL_SIZE: " + threadPoolTaskExecutor.getPoolSize());
         } else {
             logger.error("Call is null");
         }

@@ -13,7 +13,7 @@ import java.util.List;
 
 @Component
 public class Scheduler {
-    private static final Logger logger = LoggerFactory.getLogger(CallCenterThread.class);
+    private static final Logger logger = LoggerFactory.getLogger(Scheduler.class);
 
     @Autowired
     private DispatcherService dispatcherService;
