@@ -26,7 +26,7 @@ public class CallCenterThread implements Runnable {
     @Autowired
     private EmployeeService employeeService;
 
-    @Value("${call.min-duration}")
+    @Value("${call.min-duration")
     private int minDuration;
 
     @Value("${call.max-duration}")

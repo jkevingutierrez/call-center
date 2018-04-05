@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.LinkedList;
 import java.util.List;
 
 @RestController
@@ -27,7 +26,7 @@ public class DispatcherController extends BaseController {
         Call call = dispatcherService.dispatchNewCall();
 
         if (call == null) {
-            return new ResponseEntity("Error", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(call, HttpStatus.BAD_REQUEST);
         }
 
         return new ResponseEntity(call, HttpStatus.OK);
@@ -40,7 +39,7 @@ public class DispatcherController extends BaseController {
         call = dispatcherService.dispatchCall(call);
 
         if (call == null) {
-            return new ResponseEntity("Error", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(call, HttpStatus.BAD_REQUEST);
         }
 
         return new ResponseEntity(call, HttpStatus.OK);
@@ -52,7 +51,7 @@ public class DispatcherController extends BaseController {
         List<Call> calls = dispatcherService.dispatchNewCalls(numberOfCalls);
 
         if (calls.isEmpty()) {
-            return new ResponseEntity("Error", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(calls, HttpStatus.BAD_REQUEST);
         }
 
         return new ResponseEntity(calls, HttpStatus.OK);

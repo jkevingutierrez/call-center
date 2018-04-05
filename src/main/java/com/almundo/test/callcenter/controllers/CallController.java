@@ -1,7 +1,6 @@
 package com.almundo.test.callcenter.controllers;
 
 import com.almundo.test.callcenter.entities.Call;
-import com.almundo.test.callcenter.entities.Employee;
 import com.almundo.test.callcenter.services.CallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

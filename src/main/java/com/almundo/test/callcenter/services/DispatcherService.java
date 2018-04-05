@@ -3,6 +3,8 @@ package com.almundo.test.callcenter.services;
 import com.almundo.test.callcenter.components.CallCenterThread;
 import com.almundo.test.callcenter.entities.Call;
 import com.almundo.test.callcenter.entities.Employee;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.task.TaskExecutor;
@@ -14,6 +16,8 @@ import java.util.List;
 
 @Service
 public class DispatcherService {
+    private static final Logger logger = LoggerFactory.getLogger(CallCenterThread.class);
+
     @Autowired
     private TaskExecutor taskExecutor;
 
@@ -50,6 +54,7 @@ public class DispatcherService {
         List<Employee> employees = employeeService.getAllThatCanAttendACall();
 
         if (employees.isEmpty()) {
+            logger.error("All employees are busy");
             return null;
         }
 
@@ -63,12 +68,17 @@ public class DispatcherService {
             employee.setBusy(true);
             employeeService.update(employee.getId(), employee);
 
+            logger.info("Sending call " + call.getId() + " to employee " + employee.getId());
+
             CallCenterThread thread = applicationContext.getBean(CallCenterThread.class);
             thread.setCall(call);
             taskExecutor.execute(thread);
+
             // ThreadPoolTaskExecutor test = (ThreadPoolTaskExecutor) taskExecutor;
             // System.out.println("ACTIVECOUNT: " + test.getActiveCount());
             // System.out.println("POOLSIZE: " + test.getPoolSize());
+        } else {
+            logger.error("Call is null");
         }
         return call;
     }
