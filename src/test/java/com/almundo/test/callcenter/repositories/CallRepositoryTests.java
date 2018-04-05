@@ -1,7 +1,6 @@
 package com.almundo.test.callcenter.repositories;
 
 import com.almundo.test.callcenter.entities.Call;
-import com.almundo.test.callcenter.entities.Employee;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
