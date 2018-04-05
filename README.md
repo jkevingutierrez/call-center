@@ -6,6 +6,8 @@ An API for manage a multithreaded call center using Spring Boot.
 
 You can check the endpoints on [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html) locally or [https://call-center-almundo.herokuapp.com/swagger-ui.html](https://call-center-almundo.herokuapp.com/swagger-ui.html)
 
+To create a call and dispatch it, you can use the endpoint [http://localhost:8080/dispatch](http://localhost:8080/dispatch) locally or [https://call-center-almundo.herokuapp.com/dispatch](https://call-center-almundo.herokuapp.com/dispatch)
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
