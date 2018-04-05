@@ -49,7 +49,7 @@ public class DispatcherServiceTests {
     public void should_dispatch_one_new_call() throws InterruptedException {
         Call call = service.dispatchNewCall();
 
-        TimeUnit.SECONDS.sleep(maxDuration + 1);
+        TimeUnit.SECONDS.sleep(maxDuration);
 
         validateFinishedCall(call);
     }
@@ -59,7 +59,7 @@ public class DispatcherServiceTests {
         int numberOfCalls = 10;
         List<Call> calls = service.dispatchNewCalls(numberOfCalls);
 
-        TimeUnit.SECONDS.sleep(maxDuration + 1);
+        TimeUnit.SECONDS.sleep(maxDuration);
 
         assertThat(calls).hasSize(numberOfCalls);
         for (Call call : calls) {
@@ -73,7 +73,7 @@ public class DispatcherServiceTests {
         int numberOfCalls = 11;
         List<Call> calls = service.dispatchNewCalls(numberOfCalls);
 
-        TimeUnit.SECONDS.sleep(maxDuration + 1);
+        TimeUnit.SECONDS.sleep(maxDuration);
 
         assertThat(calls).hasSize(numberOfCalls);
         for (Call call : calls) {
