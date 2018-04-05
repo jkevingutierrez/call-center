@@ -39,13 +39,13 @@ public class CallCenterThread implements Runnable {
         long start = System.currentTimeMillis();
         Thread currentThread = Thread.currentThread();
 
-        logger.info("Starting: The call " + this.call.getId() + " will be answering by " + this.employee.getName() + "(" + this.employee.getId() + ") on thread -- " + currentThread.getName() + " -- at " + new Date());
+        logger.info("Starting: The call " + this.call.getId() + " will be answering by " + this.employee.getName() + " (id: " + this.employee.getId() + ") on thread -- " + currentThread.getName() + " -- at " + new Date());
 
         startAnswering();
         sleep();
         finishCall();
 
-        logger.info("Finishing: The call " + this.call.getId() + " was answering by " + this.employee.getName() + "(" + this.employee.getId() + ") on thread -- " + currentThread.getName() + " -- after " + (System.currentTimeMillis() - start) + "ms");
+        logger.info("Finishing: The call " + this.call.getId() + " was answering by " + this.employee.getName() + " (id: " + this.employee.getId() + ") on thread -- " + currentThread.getName() + " -- after " + (System.currentTimeMillis() - start) + "ms");
     }
 
     private void sleep() {
