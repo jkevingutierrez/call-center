@@ -68,13 +68,12 @@ public class DispatcherService {
             logger.info("Sending call to be answering");
 
             CallCenterThread thread = applicationContext.getBean(CallCenterThread.class);
-            thread.setCall(call);
-            thread.setEmployee(employee);
-
             ThreadPoolTaskExecutor threadPoolTaskExecutor = (ThreadPoolTaskExecutor) taskExecutor;
             ThreadPoolExecutor threadPoolExecutor = threadPoolTaskExecutor.getThreadPoolExecutor();
 
             try {
+                thread.setCall(call);
+                thread.setEmployee(employee);
                 taskExecutor.execute(thread);
             } catch (TaskRejectedException e) {
                 logger.error("Executor [" + threadPoolExecutor + "] did not accept task. Queue limit was reached. The call " + call.getId() + " will be answered later");

@@ -32,7 +32,7 @@ public class Scheduler {
         }
 
         for (Call call : unansweredCalls) {
-            logger.info("Dispatching call " + call.getId());
+            logger.info("Dispatching unanswered call " + call.getId());
             dispatcherService.dispatchCall(call);
         }
     }
