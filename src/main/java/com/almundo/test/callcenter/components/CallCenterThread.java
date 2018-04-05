@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.List;
 
 @Component
 @Scope("prototype")
@@ -39,13 +40,13 @@ public class CallCenterThread implements Runnable {
         long start = System.currentTimeMillis();
         Thread currentThread = Thread.currentThread();
 
-        logger.info("Starting: The call " + this.call.getId() + " will be answering by " + this.employee.getName() + " (id: " + this.employee.getId() + ") on thread -- " + currentThread.getName() + " -- at " + new Date());
-
         startAnswering();
-        sleep();
-        finishCall();
 
+        logger.info("Starting: The call " + this.call.getId() + " will be answering by " + this.employee.getName() + " (id: " + this.employee.getId() + ") on thread -- " + currentThread.getName() + " -- at " + new Date());
+        sleep();
         logger.info("Finishing: The call " + this.call.getId() + " was answering by " + this.employee.getName() + " (id: " + this.employee.getId() + ") on thread -- " + currentThread.getName() + " -- after " + (System.currentTimeMillis() - start) + "ms");
+
+        finishCall();
     }
 
     private void sleep() {
@@ -59,6 +60,11 @@ public class CallCenterThread implements Runnable {
     }
 
     private void startAnswering() {
+        List<Employee> employees = employeeService.getAllThatCanAttendACall();
+
+        int randomEmployee = (int) (Math.random() * (employees.size() - 1));
+        this.employee = employees.get(randomEmployee);
+
         this.call.setAnsweredDate(new Date());
         this.call.setEmployee(this.employee);
 
@@ -85,9 +91,5 @@ public class CallCenterThread implements Runnable {
 
     public Employee getEmployee() {
         return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
     }
 }

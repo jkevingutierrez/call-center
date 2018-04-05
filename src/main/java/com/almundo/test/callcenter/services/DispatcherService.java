@@ -64,12 +64,8 @@ public class DispatcherService {
             List<Employee> employees = employeeService.getAllThatCanAttendACall();
 
             if (!employees.isEmpty()) {
-                int randomEmployee = (int) (Math.random() * (employees.size() - 1));
-                Employee employee = employees.get(randomEmployee);
-
                 try {
                     thread.setCall(call);
-                    thread.setEmployee(employee);
                     taskExecutor.execute(thread);
                 } catch (TaskRejectedException e) {
                     logger.error("Executor [" + threadPoolExecutor + "] did not accept task. Queue limit was reached. The call " + call.getId() + " will be answered later");
