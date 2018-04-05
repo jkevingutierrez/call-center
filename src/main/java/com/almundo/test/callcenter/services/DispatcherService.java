@@ -55,28 +55,27 @@ public class DispatcherService {
     }
 
     public Call dispatchCall(Call call) {
-        List<Employee> employees = employeeService.getAllThatCanAttendACall();
-
-        if (employees.isEmpty()) {
-            logger.info("All employees are busy. The call " + call.getId() + " will be answered later");
-            return call;
-        }
-
         if (call != null) {
-            Employee employee = employees.get(0);
-
             logger.info("Sending call to be answering");
-
             CallCenterThread thread = applicationContext.getBean(CallCenterThread.class);
             ThreadPoolTaskExecutor threadPoolTaskExecutor = (ThreadPoolTaskExecutor) taskExecutor;
             ThreadPoolExecutor threadPoolExecutor = threadPoolTaskExecutor.getThreadPoolExecutor();
 
-            try {
-                thread.setCall(call);
-                thread.setEmployee(employee);
-                taskExecutor.execute(thread);
-            } catch (TaskRejectedException e) {
-                logger.error("Executor [" + threadPoolExecutor + "] did not accept task. Queue limit was reached. The call " + call.getId() + " will be answered later");
+            List<Employee> employees = employeeService.getAllThatCanAttendACall();
+
+            if (!employees.isEmpty()) {
+                int randomEmployee = (int) (Math.random() * (employees.size() - 1));
+                Employee employee = employees.get(randomEmployee);
+
+                try {
+                    thread.setCall(call);
+                    thread.setEmployee(employee);
+                    taskExecutor.execute(thread);
+                } catch (TaskRejectedException e) {
+                    logger.error("Executor [" + threadPoolExecutor + "] did not accept task. Queue limit was reached. The call " + call.getId() + " will be answered later");
+                }
+            } else {
+                logger.info("All employees are busy. The call " + call.getId() + " will be answered later");
             }
 
             logger.info("Thread Pool active count: " + threadPoolExecutor.getActiveCount());
