@@ -28,7 +28,7 @@ public class Call {
     @Column(name = "finished_date")
     private Date finishedDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id")
     private Employee employee;
 

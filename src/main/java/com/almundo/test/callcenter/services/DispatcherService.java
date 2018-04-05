@@ -8,12 +8,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.task.TaskExecutor;
+import org.springframework.core.task.TaskRejectedException;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.RejectedExecutionException;
+import java.util.concurrent.ThreadPoolExecutor;
 
 @Service
 public class DispatcherService {
@@ -55,29 +58,29 @@ public class DispatcherService {
         List<Employee> employees = employeeService.getAllThatCanAttendACall();
 
         if (employees.isEmpty()) {
-            logger.error("All employees are busy");
-            return null;
+            logger.info("All employees are busy. The call " + call.getId() + " will be answered later");
+            return call;
         }
 
-        call.setAnsweredDate(new Date());
-        call.setEmployee(employees.get(0));
-
-        call = callService.update(call.getId(), call);
-
         if (call != null) {
-            Employee employee = call.getEmployee();
-            employee.setBusy(true);
-            employeeService.update(employee.getId(), employee);
+            Employee employee = employees.get(0);
 
-            logger.info("Sending call " + call.getId() + " to employee " + employee.getId());
+            logger.info("Sending call to be answering");
 
             CallCenterThread thread = applicationContext.getBean(CallCenterThread.class);
             thread.setCall(call);
-            taskExecutor.execute(thread);
+            thread.setEmployee(employee);
 
             ThreadPoolTaskExecutor threadPoolTaskExecutor = (ThreadPoolTaskExecutor) taskExecutor;
-            logger.info("ACTIVE_COUNT: " + threadPoolTaskExecutor.getActiveCount());
-            // logger.info("POOL_SIZE: " + threadPoolTaskExecutor.getPoolSize());
+            ThreadPoolExecutor threadPoolExecutor = threadPoolTaskExecutor.getThreadPoolExecutor();
+
+            try {
+                taskExecutor.execute(thread);
+            } catch (TaskRejectedException e) {
+                logger.error("Executor [" + threadPoolExecutor + "] did not accept task. Queue limit was reached. The call " + call.getId() + " will be answered later");
+            }
+
+            logger.info("Thread Pool active count: " + threadPoolExecutor.getActiveCount());
         } else {
             logger.error("Call is null");
         }

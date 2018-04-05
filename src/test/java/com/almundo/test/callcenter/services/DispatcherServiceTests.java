@@ -4,54 +4,32 @@ import com.almundo.test.callcenter.entities.Call;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static org.hamcrest.core.StringContains.containsString;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@AutoConfigureMockMvc
 public class DispatcherServiceTests {
 
-    @MockBean
-    private DispatcherService dispatcherService;
-
     @Autowired
-    private MockMvc mockMvc;
+    private DispatcherService service;
 
     @Test
-    public void dispatchOneNewCall() {
-        // Call call = dispatcherService.dispatchNewCall();
-        // assertNull(call.getFinishedDate());
-        // assertNotNull(call.getAnsweredDate());
+    public void should_dispatch_one_new_call() {
+        //Call call = service.dispatchNewCall();
+        //assertThat(call.getFinishedDate()).isNotNull();
+        //assertThat(call.getAnsweredDate()).isNotNull();
     }
 
     @Test
-    public void dispatchTenNewCalls() {
-        // int numberOfCalls = 10;
-        // List<Call> calls = dispatcherService.dispatchNewCalls(numberOfCalls);
-        // assertEquals(calls.size(), numberOfCalls);
+    public void should_dispatch_ten_calls_in_parallel() {
+        //int numberOfCalls = 10;
+        //List<Call> calls = service.dispatchNewCalls(numberOfCalls);
+        //assertThat(calls).hasSize(numberOfCalls);
     }
-
-    @Test
-    public void shouldReturnDefaultMessage() throws Exception {
-        // this.mockMvc.perform(get("/")).andDo(print()).andExpect(status().isOk())
-        //         .andExpect(content().string(containsString("Hello World")));
-    }
-
 }

@@ -8,6 +8,8 @@ You can check the endpoints on [http://localhost:8080/swagger-ui.html](http://lo
 
 To create a call and dispatch it, you can use the endpoint [http://localhost:8080/dispatch](http://localhost:8080/dispatch) locally or [https://call-center-almundo.herokuapp.com/dispatch](https://call-center-almundo.herokuapp.com/dispatch)
 
+To create multiple calls and dispatch all of them, you can use the endpoint [http://localhost:8080/dispatch/{numberOfCalls}](http://localhost:8080/dispatch/) locally or [https://call-center-almundo.herokuapp.com/dispatch/{numberOfCalls}](https://call-center-almundo.herokuapp.com/dispatch/)
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.

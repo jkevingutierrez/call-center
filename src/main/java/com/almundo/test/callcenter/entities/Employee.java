@@ -32,7 +32,7 @@ public class Employee {
     @Column(name = "busy")
     private boolean busy;
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     private List<Call> calls;
 

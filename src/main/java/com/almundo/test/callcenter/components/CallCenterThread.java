@@ -20,6 +20,8 @@ public class CallCenterThread implements Runnable {
 
     private Call call;
 
+    private Employee employee;
+
     @Autowired
     private CallService callService;
 
@@ -37,12 +39,13 @@ public class CallCenterThread implements Runnable {
         long start = System.currentTimeMillis();
         Thread currentThread = Thread.currentThread();
 
-        logger.info("Start attending call " + this.call.getId() + " on thread -- " + currentThread.getName() + " -- at " + new Date());
+        logger.info("Starting: The call " + this.call.getId() + " will be answering by " + this.employee.getName() + "(" + this.employee.getId() + ") on thread -- " + currentThread.getName() + " -- at " + new Date());
 
+        startAnswering();
         sleep();
-        updateCallAndEmployee();
+        finishCall();
 
-        logger.info("Finished call " + this.call.getId() + " on thread -- " + currentThread.getName() + " -- after " + (System.currentTimeMillis() - start) + "ms");
+        logger.info("Finishing: The call " + this.call.getId() + " was answering by " + this.employee.getName() + "(" + this.employee.getId() + ") on thread -- " + currentThread.getName() + " -- after " + (System.currentTimeMillis() - start) + "ms");
     }
 
     private void sleep() {
@@ -55,7 +58,15 @@ public class CallCenterThread implements Runnable {
         }
     }
 
-    private void updateCallAndEmployee() {
+    private void startAnswering() {
+        this.call.setAnsweredDate(new Date());
+        this.call.setEmployee(this.employee);
+
+        this.employee.setBusy(true);
+        employeeService.update(this.employee.getId(), this.employee);
+    }
+
+    private void finishCall() {
         this.call.setFinishedDate(new Date());
         callService.update(this.call.getId(), this.call);
 
@@ -70,5 +81,13 @@ public class CallCenterThread implements Runnable {
 
     public void setCall(Call call) {
         this.call = call;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 }
